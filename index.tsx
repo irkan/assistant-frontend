@@ -105,8 +105,8 @@ export class GdmLiveAudio extends LitElement {
   }
 
   private connect() {
-    console.log('[GdmLiveAudio] Attempting to connect to WebSocket at ws://46.62.130.51:3001');
-    this.socket = new WebSocket('ws://46.62.130.51:3001');
+    console.log('[GdmLiveAudio] Attempting to connect to WebSocket at ws://localhost:3001');
+    this.socket = new WebSocket('ws://138.199.214.131:3001');
     
     this.socket.onopen = () => {
       console.log('[GdmLiveAudio] WebSocket connection established.');
@@ -227,7 +227,7 @@ export class GdmLiveAudio extends LitElement {
 
         const inputBuffer = audioProcessingEvent.inputBuffer;
         const pcmData = inputBuffer.getChannelData(0);
-        
+        console.log('[GdmLiveAudio] Received PCM chunk from microphone.'+ pcmData.length, "this.socket.readyState: ", this.socket.readyState);
         if (this.socket.readyState === WebSocket.OPEN) {
             // convert float32 to int16
             const l = pcmData.length;
@@ -235,7 +235,7 @@ export class GdmLiveAudio extends LitElement {
             for (let i = 0; i < l; i++) {
               int16[i] = pcmData[i] * 32768;
             }
-            console.log('[GdmLiveAudio] Sending PCM chunk to server.'+ int16.length);
+            console.log('[GdmLiveAudio] Sending PCM chunk to server. '+ int16.length);
             this.socket.send(int16.buffer);
         }
       };
