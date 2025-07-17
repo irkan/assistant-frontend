@@ -106,7 +106,7 @@ export class GdmLiveAudio extends LitElement {
 
   private connect() {
     console.log('[GdmLiveAudio] Attempting to connect to WebSocket at ws://localhost:3001');
-    this.socket = new WebSocket('ws://46.62.139.175:3001');
+    this.socket = new WebSocket('ws://46.62.135.5:3001');
     
     this.socket.onopen = () => {
       console.log('[GdmLiveAudio] WebSocket connection established.');
